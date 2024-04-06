@@ -1,0 +1,9 @@
+.stage {
+  overflow: hidden;
+  background: linear-gradient(#2e2e2ec4, transparent 1px),
+    linear-gradient(90deg, #2e2e2ec4, transparent 1px);
+  background-color: #1c1c1c;
+  background-size: 30px 30px;
+  background-position: center center;
+  touch-action: none;
+}
