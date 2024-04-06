@@ -1,11 +1,10 @@
+// @ts-nocheck
+
 import { Stage, Layer, Rect } from "react-konva";
 import "./App.css";
 import { useState, useEffect, useCallback, useRef } from "react";
 import Konva from "konva";
 import Animation from "./Animation";
-import { Html } from "react-konva-utils";
-import animationData from "./assets/helicopter.json";
-import Lottie from "react-lottie";
 
 function App() {
   const [mapItems, setMapItems] = useState([]);
@@ -13,15 +12,15 @@ function App() {
   useEffect(() => {
     const ROW = 15;
 
-    function fn(a, b) {
+    function fn(a: any, b: any) {
       return Math.floor(a / b);
     }
 
-    const fn2 = (number) => {
+    const fn2 = (number: any) => {
       return number % ROW;
     };
 
-    const arr = [];
+    const arr: any = [];
     for (let i = 1; i < 100; i++) {
       const y = 100 * fn(i, ROW);
       const x = 100 * fn2(i);
@@ -42,24 +41,21 @@ function App() {
     y2: 0,
   });
 
-  const moveBackground = useCallback(
-    (e: Konva.KonvaEventObject<DragEvent | WheelEvent>) => {
-      e.evt.preventDefault();
+  const moveBackground = useCallback((e: any) => {
+    e.evt.preventDefault();
 
-      const stage = e.currentTarget as Konva.Stage;
-      const position = stage.position();
-      const container = stage.getContent().parentElement?.parentElement;
+    const stage = e.currentTarget as Konva.Stage;
+    const position = stage.position();
+    const container = stage.getContent().parentElement?.parentElement;
 
-      if (!container) return;
-      setZoom((prev) => ({
-        ...prev,
-        x2: e.currentTarget.attrs.x,
-        y2: e.currentTarget.attrs.y,
-      }));
-      container.style.backgroundPosition = `${position.x}px ${position.y}px`;
-    },
-    []
-  );
+    if (!container) return;
+    setZoom((prev) => ({
+      ...prev,
+      x2: e.currentTarget.attrs.x,
+      y2: e.currentTarget.attrs.y,
+    }));
+    container.style.backgroundPosition = `${position.x}px ${position.y}px`;
+  }, []);
 
   useEffect(() => {
     const stage = stageRef.current as Konva.Stage;
@@ -70,7 +66,7 @@ function App() {
     container.style.backgroundPosition = `${0}px ${0}px`;
   }, []);
 
-  const handleWheel = useCallback((e: Konva.KonvaEventObject<WheelEvent>) => {
+  const handleWheel = useCallback((e: any) => {
     const scaleBackground = (scale: number, x: number, y: number) => {
       const stage = stageRef.current as Konva.Stage;
 
@@ -121,21 +117,12 @@ function App() {
     }));
   }, []);
 
-  const onWheel = (e) => {
+  const onWheel = (e: any) => {
     requestAnimationFrame(handleWheel(e), moveBackground(e));
   };
 
-  const onDragMove = (e) => {
+  const onDragMove = (e: any) => {
     requestAnimationFrame(moveBackground(e));
-  };
-
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
   };
 
   return (

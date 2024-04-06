@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import animationData from "./assets/helicopter.json";
 import { Html } from "react-konva-utils";
 import Lottie from "react-lottie";
-import { Stage, Layer, Rect } from "react-konva";
+import { Layer } from "react-konva";
 
 interface AnimationProps {
   x: number;
